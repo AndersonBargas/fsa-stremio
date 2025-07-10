@@ -84,7 +84,7 @@ func GetStream(c echo.Context) error {
 
 	stream := entities.Stream{
 		Title: "The Matrix",
-		URL:   "https://www.w3schools.com/html/mov_bbb.mp4",
+		URL:   "http://192.168.1.39/Media/MOVIES/The%20Matrix/The%20Matrix.mkv",
 	}
 
 	streamResponse := entities.StreamResponse{
