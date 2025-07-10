@@ -15,10 +15,10 @@ import (
 )
 
 func main() {
-	webServerPort := flag.String("port", "8080", "The port which the WebServer will listen to")
+	webServerPort := os.Getenv("PORT")
 	databasePath := flag.String("db", "./fsa.db", "The path where the database will be stored")
 
-	utils.ValidarPortaTCP(*webServerPort)
+	utils.ValidarPortaTCP(webServerPort)
 
 	// basic configs
 	// c, err := configs.NewBasicConfigsEnv()
@@ -51,5 +51,5 @@ func main() {
 		log.Fatalf("Error getting the router instance: %v", err)
 	}
 	routes.RegisterEndpoints()
-	e.Logger.Fatal(e.Start(":" + *webServerPort))
+	e.Logger.Fatal(e.Start(":" + webServerPort))
 }
