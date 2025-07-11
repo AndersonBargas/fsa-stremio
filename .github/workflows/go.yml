@@ -47,13 +47,9 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@137.131.221.149 "mkdir -p ~/fsa"
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@137.131.221.149 "sudo service fsa stop"
           scp -o StrictHostKeyChecking=no -i private_key.pem ./fsa ubuntu@137.131.221.149:~/fsa/fsa
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@137.131.221.149 <<EOF
-            chmod +x ~/fsa/fsa
-            sudo pkill fsa || true
-            sudo nohup ~/fsa/fsa > ~/fsa/output.log 2>&1 &
-          EOF
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@137.131.221.149 "sudo service fsa start"
           rm -f private_key.pem
 
     permissions:
