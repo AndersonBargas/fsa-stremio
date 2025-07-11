@@ -51,5 +51,5 @@ func main() {
 		log.Fatalf("Error getting the router instance: %v", err)
 	}
 	routes.RegisterEndpoints()
-	e.Logger.Fatal(e.Start(":" + webServerPort))
+	e.Logger.Fatal(e.StartTLS(":443"+webServerPort, "server.crt", "server.key"))
 }
