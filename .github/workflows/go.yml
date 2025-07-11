@@ -22,7 +22,7 @@ jobs:
       - name: Build Linux AMD64 binary
         run: |
           mkdir -p build
-          GOOS=linux GOARCH=amd64 go build -o build/fsa main.go
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o build/fsa main.go
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -51,8 +51,8 @@ jobs:
           scp -o StrictHostKeyChecking=no -i private_key.pem ./fsa ubuntu@137.131.221.149:~/fsa/fsa
           ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@137.131.221.149 <<EOF
             chmod +x ~/fsa/fsa
-            pkill fsa || true
-            nohup ~/fsa/fsa > ~/fsa/output.log 2>&1 &
+            sudo pkill fsa || true
+            sudo nohup ~/fsa/fsa > ~/fsa/output.log 2>&1 &
           EOF
           rm -f private_key.pem
 
