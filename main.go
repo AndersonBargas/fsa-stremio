@@ -3,8 +3,6 @@ package main
 import (
 	"FSA/api"
 	"FSA/db"
-	"FSA/utils"
-	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -15,20 +13,8 @@ import (
 )
 
 func main() {
-	webServerPort := os.Getenv("PORT")
-	databasePath := flag.String("db", "./fsa.db", "The path where the database will be stored")
-
-	utils.ValidarPortaTCP(webServerPort)
-
-	// basic configs
-	// c, err := configs.NewBasicConfigsEnv()
-	// if err != nil {
-	// 	fmt.Println("Error obtaining the basic configs from env: %w", err)
-	// 	os.Exit(1)
-	// }
-
 	// rainstorm - database
-	rainstormInstance, err := rainstorm.Open(*databasePath)
+	rainstormInstance, err := rainstorm.Open("./fsa.db")
 	if err != nil {
 		fmt.Println("Error opening the database: %w", err)
 		os.Exit(2)
@@ -51,5 +37,5 @@ func main() {
 		log.Fatalf("Error getting the router instance: %v", err)
 	}
 	routes.RegisterEndpoints()
-	e.Logger.Fatal(e.StartTLS(":443"+webServerPort, "server.crt", "server.key"))
+	e.Logger.Fatal(e.StartTLS(":443", "server.crt", "server.key"))
 }

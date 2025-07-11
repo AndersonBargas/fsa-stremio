@@ -30,7 +30,7 @@ func GetManifest(c echo.Context) error {
 	}
 
 	manifest := &Manifest{
-		ID:           "aewww",
+		ID:           "com.andersonbargas.fsa",
 		Version:      "0.1.3",
 		Name:         "FSA - File Server Addon",
 		Description:  "Serves local file through network",
